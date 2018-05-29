@@ -1,0 +1,126 @@
+<!-- <div>
+ <nav class="navbar navbar-light bg-light primary">
+  <div class="navbar-header">
+     
+          <img width="100" height="40" src="assets/image001.png">
+      
+  </div>
+ 
+  <button [routerLink]="['/login']" type="button" class="btn btn-default navbar-btn navbar-right"> LOGOUT </button>
+  <form class="form-inline navbar-right">
+    <div>
+        <div class="dropdown">
+            <a  class="btn dropdown-toggle" data-toggle="dropdown">
+        <img width="40" height="40" [src]="loggedUser.profile" class="rounded-circle" alt="User Image">
+            {{loggedUser.firstname}} {{loggedUser.lastname}}
+        </a>
+        <div class="dropdown-menu">
+            <a class="dropdown-item"><img width="130" height="130" [src]="loggedUser.profile" class="user-image"alt="User Image"></a>
+            <a class="dropdown-item" (click)="changePwd()">Change Password</a>
+            <div class="dropdown-item">
+            <a> <button class="btn btn-default btn-sm">Profile</button></a>
+            <a (click)="logout()"> <button class="btn btn-default btn-sm">Sign out</button></a>
+        </div>
+    </div>
+    </div>
+    </div>
+  </form>
+</nav>
+</div> -->
+<div style="min-height: 520px;" 
+class="content-wrapper">
+<section *ngIf="loggedIn" class="content-header">
+<ol class="breadcrumb">
+ <li><a [routerLink]="['/profile']"><i class="fa fa-dashboard"></i> Level</a></li>
+ <li class="active">{{router.url}}</li>
+</ol>
+</section>
+<div>
+<div class="row">
+  <div class="col-xl-12">
+    <div class=" col-xl-12">
+       
+          <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Select Role
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                  <li><a class="dropdown-item" (click)="selRole('admin')">Admin</a></li> 
+                  <li><a class="dropdown-item active" (click)="selRole('user')">User</a></li> 
+              </ul>
+            </div>
+          <!-- <form [formGroup]="select">
+            <mat-form-field class="select">
+                <mat-select formControlName="control" >
+                  <mat-option (click)="selRole('admin')" value="admin">
+                    Admin
+                  </mat-option>
+                  <mat-option (click)="selRole('user')" value="user">
+                    User
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </form> -->
+    </div>
+  </div>
+</div>
+
+
+
+
+  <div flag class=" mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" >
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+        <mat-cell *matCellDef="let users; let i=index">{{srno+i+1}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="profile">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Profile </mat-header-cell>
+          <mat-cell *matCellDef="let users; "> <img width="80" height="80" [src]="users.profile"> </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="firstname">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+        <mat-cell *matCellDef="let users; "> {{users.firstname}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="lastname">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+        <mat-cell *matCellDef="let users; "> {{users.lastname}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="username">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+        <mat-cell *matCellDef="let users; "> {{users.username}}  </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let users; "> {{users.email}}  </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="mobile">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Mobile </mat-header-cell>
+        <mat-cell *matCellDef="let users; "> {{users.mobile}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef> Gender </mat-header-cell>
+        <mat-cell *matCellDef="let users; "> {{users.gender}}  </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> <button mat-button color="primary" (click)="add()"><i class="material-icons">add</i></button> </mat-header-cell>
+        <mat-cell *matCellDef="let users; let i=index"> 
+          <button mat-icon-button color="primary" (click)="edit(users)"><i class="material-icons">edit</i></button>
+          <button mat-icon-button color="primary" (click)="delete(i,users)"><i class="material-icons">delete</i></button>
+          <button mat-icon-button color="primary" (click)="view(users)"><i class="material-icons">visibility</i></button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; let i=index columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <mat-paginator  #paginator
+    [length]
+    [pageSize]
+    [showFirstLastButtons]="true"
+    (page)="pageEvent = $event; onPaginateChange($event)">
+    </mat-paginator>
+  </div>
+</div>
+</div>

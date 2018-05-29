@@ -1,0 +1,75 @@
+<form [formGroup]="uploadForm" (ngSubmit)="onClick()">
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="role" formControlName="role" value="admin">
+    <label class="form-check-label">Admin</label>
+ 
+    <input class="form-check-input" type="radio" name="role" formControlName="role" value="user">
+    <label class="form-check-label">User</label>
+  </div>
+
+  <div class="form-group">
+      <input type="text" class="form-control"  name="username"  formControlName="username" placeholder="Username">
+    <div *ngIf="username.errors">
+      <span *ngIf="username.errors.required && username.touched" class="help-block">Required*</span>    
+    </div>
+ </div>
+
+  <div class="form-group">
+    <input  type="text" class="form-control" formControlName="password" placeholder="Password">
+    <span *ngIf="!password.valid && password.touched" class="help-block">Required*</span>
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control" formControlName="firstname" placeholder="Firstname">
+    <span *ngIf="!firstname.valid && firstname.touched" class="help-block">Required*</span>
+  </div>
+
+  <div class="form-group">
+    <input type="text" class="form-control" formControlName="lastname" placeholder="Lastname">
+    <span *ngIf="!lastname.valid && lastname.touched" class="help-block">Required*</span>
+  </div>
+
+  <div class="form-group">
+    <input type="email" class="form-control" formControlName="email" aria-describedby="emailHelp" placeholder="Email">
+    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+        <div *ngIf="email.errors.pattern">
+        Invalid email id
+        </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <input type="number" class="form-control" formControlName="mobile" placeholder="Mobile">
+    <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+        <div *ngIf="mobile.errors.minlength">
+        Mobile no. must be at least 10 number long.
+        </div>
+        <div *ngIf="mobile.errors.pattern">
+        Invalid mobile number
+        </div>
+    </div>
+  </div>
+  
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="Male">
+    <label class="form-check-label">Male</label>
+
+    <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="Female">
+    <label class="form-check-label">Female</label>
+  </div>
+
+  <div style="justify-content: space-around">
+    <div style="margin-bottom: 10px">
+      <img width="100px" height="100px" [src]="data.profile"><br>
+    </div>
+    <div>
+      <input type="file" (change)="fileChangeEvent($event)">
+    </div>
+  </div>
+ 
+<hr>
+<div>
+    <button [disabled] = "!uploadForm.valid" type="submit" class="btn btn-block btn-primary">Save</button>
+    <button class="btn btn-block btn-primary" (click)="onClickClose()">Close</button>
+  </div>
+</form>

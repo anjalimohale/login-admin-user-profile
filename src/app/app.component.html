@@ -1,20 +1,209 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<div class="wrapper" >
+    <nav class="navbar navbar-default" *ngIf="!loggedIn">
+        <div class="navbar-header">
+            <a>
+                <img width="100" height="40" src="assets/image001.png">
+            </a>
+        </div>
+        <button [routerLink]="['/login']" type="button" class="btn btn-default navbar-btn navbar-right"> SignIn </button>
+      </nav>
+  <app-starter-header *ngIf="loggedIn"></app-starter-header>
+  <app-starter-left-side *ngIf="loggedIn"></app-starter-left-side>
+  <app-starter-content></app-starter-content>
+  <router-outlet></router-outlet>
+  <app-starter-footer *ngIf="loggedIn"></app-starter-footer>
+  <app-starter-control-sidebar *ngIf="loggedIn"></app-starter-control-sidebar>
+  <div class="control-sidebar-bg" *ngIf="loggedIn"></div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
 
+<!-- <div *ngIf="router.url=='/login'">
+  <app-starter-content></app-starter-content>
+  <app-login></app-login>
+</div>
+<div *ngIf="router.url=='/forgot-password'">
+  <app-starter-content></app-starter-content>
+  <app-forgot-password></app-forgot-password>
+</div>
+<div *ngIf="router.url=='/register'">
+  <app-starter-content></app-starter-content>
+    <app-register></app-register>
+</div>
+<div>
+  <app-starter-content></app-starter-content>
+  <app-reset-password></app-reset-password>
+</div> -->
+<!-- 
+<div *ngIf="loggedIn" class="hold-transition skin-blue fixed sidebar-mini">
+    <div class="wrapper">
+    
+      <header class="main-header">
+        <a class="logo">
+          <span class="logo-mini"><b>P</b>LP</span>
+          <span class="logo-lg">Property Listing Portal</span>
+        </a>
+        <nav class="navbar navbar-static-top">
+          <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+    
+          <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+    
+              <li class="dropdown messages-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-envelope-o"></i>
+                  <span class="label label-success">4</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">You have 4 messages</li>
+                  <li>
+                    <ul class="menu">
+                      <li>
+                        <a href="#">
+                          <div class="pull-left">
+                            <img [src]="loggedUser.profile" class="user-image" alt="User Image">
+                          </div>
+                          <h4>
+                            Support Team
+                            <small><i class="fa fa-clock-o"></i> 5 mins</small>
+                          </h4>
+                          <p>Why not buy a new awesome theme?</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">See All Messages</a></li>
+                </ul>
+              </li>
+    
+              <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell-o"></i>
+                  <span class="label label-warning">10</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header">You have 10 notifications</li>
+                  <li>
+                    <ul class="menu">
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="footer"><a href="#">View all</a></li>
+                </ul>
+              </li>
+    
+              <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                 <img [src]="loggedUser.profile" class="user-image" alt="User Image">
+                  <span class="hidden-xs">{{loggedUser.firstname}} {{loggedUser.lastname}}</span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="user-header">
+                    <img [src]="loggedUser.profile" class="img-circle" alt="User Image">
+    
+                    <p>
+                    {{loggedUser.firstname}} {{loggedUser.lastname}} - Software Developer
+                      <small>Member since Nov. 2018</small>
+                    </p>
+                  </li>
+                  <li class="user-footer">
+                    <div class="pull-left">
+                      <a [routerLink]="['/profile-details']" routerLinkActive="active" class="btn btn-default btn-flat">Profile</a>
+                    </div>
+                    <div class="pull-right">
+                      <a (click)="logout()" class="btn btn-default btn-flat">Sign out</a>
+                    </div>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <aside class="main-sidebar">
+        <section class="sidebar">
+          <div class="user-panel">
+            <div class="pull-left image">
+              <img width="50" height="50" [src]="loggedUser.profile" class="img-rounded" alt="User Image">
+            </div>
+            <div class="pull-left info">
+              <p>{{loggedUser.firstname}} {{loggedUser.lastname}}</p>
+              <a><i class="fa fa-circle text-success"></i> Online</a>
+            </div>
+          </div>
+    
+          <ul class="sidebar-menu" data-widget="tree">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="treeview">
+            
+              <a *ngIf="loggedUser.role=='user'" [routerLink]="['/profile']">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                <span class="pull-right-container">
+                </span>
+              </a>
+              <a *ngIf="loggedUser.role=='admin'" [routerLink]="['/admin-profile']">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+                <span class="pull-right-container">
+                </span>
+              </a>
+            </li>
+            </ul>
+        </section>
+      </aside>
+            
+    <div class="content-wrapper">
+        <section class="content-header">
+          <h1>
+              Dashboard
+              <small>Control panel</small>
+          </h1>
+          <router-outlet></router-outlet>
+        </section>
+    </div>
+
+      <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 1.0.0
+        </div>
+        <strong>Copyright &copy; 2018-2019 <a href="https://adminlte.io">Infinity Labs</a>.</strong> All rights
+        reserved.
+      </footer>
+    
+      <aside class="control-sidebar control-sidebar-dark ">
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+              <li  class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+              <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                </div>
+              
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+        
+                    <div (click)="changePwd()">
+                  <span class="glyphicon glyphicon-cog"></span>  Change Password
+                    </div>
+                </div>
+                </div>
+          </aside>
+          <div class="control-sidebar-bg"></div>
+    </div>
+  </div>
+
+
+  -->
+
+
+  <!-- <router-outlet></router-outlet> -->

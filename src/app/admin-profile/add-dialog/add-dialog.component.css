@@ -1,0 +1,16 @@
+/* .table{
+    margin-top: 8%;
+    padding: 20px;
+    text-align: center;
+} */
+.form-group{
+    max-width: 95%
+}
+.btn,.btn-block{
+    display: inline;
+}
+.btn-block{
+    max-width: 39%;
+    margin-top: 0px;
+
+}

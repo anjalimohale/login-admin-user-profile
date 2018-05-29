@@ -1,0 +1,12 @@
+
+.btn,.btn-block{
+    display: inline;
+}
+.btn-block{
+    max-width: 40%;
+    margin-top: 0px;
+
+}
+.form-group{
+    max-width: 95%
+}

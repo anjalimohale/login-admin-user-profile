@@ -1,0 +1,170 @@
+<div style="min-height: 520px;" 
+class="content-wrapper">
+<section *ngIf="loggedIn" class="content-header">
+<ol class="breadcrumb">
+ <li><a [routerLink]="['/profile']"><i class="fa fa-dashboard"></i> Level</a></li>
+ <li class="active">{{router.url}}</li>
+</ol>
+</section>
+
+<section *ngIf="formload" class="content">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="box box-primary">
+        <div class="box-body box-profile">
+          <img class="profile-user-img img-responsive img-circle" [src]="loggedUser.profile" alt="User profile picture">
+          <h3 class="profile-username text-center">{{loggedUser.firstname}} {{loggedUser.lastname}}</h3>
+          <p class="text-muted text-center">Software Developer I</p>
+        </div>
+      </div>
+
+      <div class="box box-primary">
+        <div class="box-header with-border">
+          <h3 class="box-title">About Me</h3>
+        </div>
+
+        <div class="box-body">
+          <strong><i class="fa fa-envelope margin-r-5"></i>Email</strong>
+          <p class="text-muted">
+          {{loggedUser.email}}
+          </p>
+          <hr>
+          <strong><i class="fa fa-mobile margin-r-5"></i>Contact</strong>
+          <p class="text-muted">{{loggedUser.mobile}}</p>
+          <hr>
+
+          <!-- <strong><i class="fa fa-pencil margin-r-5"></i>Skills</strong>
+
+          <p>
+            <span class="label label-danger">UI Design</span>
+            <span class="label label-success">Coding</span>
+            <span class="label label-info">Javascript</span>
+            <span class="label label-warning">PHP</span>
+            <span class="label label-primary">Node.js</span>
+          </p>
+
+          <hr> -->
+
+          <span *ngIf="loggedUser.gender=='male'">
+            <i class="fa fa-male margin-r-5"></i>Male
+          </span>
+          <span *ngIf="loggedUser.gender!='male'">
+            <i class="fa fa-female margin-r-5"></i>Female
+          </span>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs">
+          <li class="active" ><a href="#settings" data-toggle="tab">Settings</a></li>
+          <li><a href="#activity" data-toggle="tab">Activity</a></li>
+          <li><a href="#timeline" data-toggle="tab">Timeline</a></li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="settings">
+            <form *ngIf="formload==true" class="form-horizontal" [formGroup]="uploadForm" (ngSubmit)="onClick()">                
+                    
+              <div class="form-group">
+                <label>Username</label>
+                  <input type="text" class="form-control"  name="username"  formControlName="username" placeholder="Username">
+                <div *ngIf="username.errors">
+                  <span *ngIf="username.errors.required && username.touched" class="help-block">Required*</span>    
+                </div>
+              </div>
+            
+              <div class="form-group">
+                <label>Firstname</label>
+                <input type="text" class="form-control" formControlName="firstname" placeholder="Firstname">
+                <span *ngIf="!firstname.valid && firstname.touched" class="help-block">Required*</span>
+              </div>
+            
+              <div class="form-group">
+                <label>Lastname</label>
+                <input type="text" class="form-control" formControlName="lastname" placeholder="Lastname">
+                <span *ngIf="!lastname.valid && lastname.touched" class="help-block">Required*</span>
+              </div>
+              
+              <div class="form-group">
+                <label>Emaill</label>
+                <input type="email" class="form-control" formControlName="email" aria-describedby="emailHelp" placeholder="Email">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+                  <div *ngIf="email.errors.pattern">
+                    Invalid email id
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label>Mobile</label>
+                <input type="number" class="form-control" formControlName="mobile" placeholder="Mobile">
+                <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="alert alert-danger">
+                  <div *ngIf="mobile.errors.minlength">
+                    Mobile no. must be at least 10 number long.
+                </div>
+                  <div *ngIf="mobile.errors.pattern">
+                    Invalid mobile number
+                  </div>
+                </div>
+              </div>
+
+
+          <div class="form-group">
+              <label>Skills</label>
+              <ng-multiselect-dropdown
+                [placeholder]="'Skills'"
+                [data]="allSkills"
+                [(ngModel)]="selectedItems"
+                [settings]="dropdownSettings"
+                formControlName="select">
+              </ng-multiselect-dropdown>
+            </div>
+            
+              <div class="form-group">
+                <label>Role: </label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="role" formControlName="role" value="admin">
+                  <label class="form-check-label">Admin</label>
+              
+                  <input class="form-check-input" type="radio" name="role" formControlName="role" value="user">
+                  <label class="form-check-label">User</label>
+                </div>
+              </div>
+            
+              <div class="form-group">
+                <label>Gender</label>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="Male">
+                  <label class="form-check-label">Male</label>
+              
+                  <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="Female">
+                  <label class="form-check-label">Female</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div style="justify-content: space-around">
+                  <div style="margin-bottom: 10px">
+                    <img *ngIf="!url" width="100px" height="100px" [src]="loggedUser.profile">
+                    <img *ngIf="url" width="100px" height="100px" [src]="url"><br>
+                  </div>
+                  <div>
+                  <input type="file" (change)="fileChangeEvent($event)">
+                  </div>
+                </div>
+              </div>
+
+              <button [disabled] = "!uploadForm.valid" type="submit" class="btn btn-primary" color="accent">Save</button>
+                          
+            </form>
+          </div>
+          <div class="tab-pane" id="activity"></div>
+          <div class="tab-pane" id="timeline"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div> 

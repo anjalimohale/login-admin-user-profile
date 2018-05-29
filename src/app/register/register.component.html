@@ -1,0 +1,117 @@
+ <div>
+    <fieldset>
+      <form *ngIf="registerForm" class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Please Sign Up</h3>
+          </div>
+
+          <div class="box-body">
+            <label>Role:</label>&nbsp;
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="role" formControlName="role" value="admin">
+            <label class="form-check-label">Admin</label>
+          
+            <input class="form-check-input" type="radio" name="role" formControlName="role" value="user">
+            <label class="form-check-label">User</label>
+          </div>
+
+          <div class="form-group">
+            <label>Username</label>
+            <input type="text" class="form-control"  name="username"  formControlName="username" placeholder="Enter username">
+            <div *ngIf="username.errors">
+              <div *ngIf="username.errors.required && username.touched" class="help-block">Username Required*</div>    
+            </div>
+          </div>
+
+          <div formGroupName="password">
+            <div class="form-group">
+              <label>Password</label>
+              <input  type="password" class="form-control" formControlName="pwd" placeholder="Enter password">
+              <div *ngIf="password.get('pwd').errors">
+                <div *ngIf="password.get('pwd').errors.required && password.get('pwd').touched" class="help-block">Password Required*</div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input type="password" class="form-control" formControlName="confirmPwd" placeholder="Re-enter Password">
+              <div *ngIf="password.get('confirmPwd').errors">
+                <div *ngIf="password.get('confirmPwd').errors.required && password.get('confirmPwd').touched" class="help-block">Confirm Password Required*</div>      
+              </div>
+            </div>
+            <div *ngIf="password.invalid && (password.get('pwd').dirty && password.get('confirmPwd').dirty)"  class="help-block">
+            <div *ngIf="password.get('pwd').touched && password.get('confirmPwd').touched" class="help-block">Password Not matched</div>      
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Firstname</label>
+            <input type="text" class="form-control" formControlName="firstname" placeholder="Enter firstname">
+              <div *ngIf="!firstname.valid && firstname.touched" class="help-block">Firstname Required*</div>
+          </div>
+
+          <div class="form-group">
+            <label>Lastname</label>
+            <input type="text" class="form-control" formControlName="lastname" placeholder="Enter lastname">
+          </div>
+
+          <div class="form-group">
+            <label>Skills</label>
+            <ng-multiselect-dropdown
+              [placeholder]="'Skills'"
+              [data]="allSkills"
+              [(ngModel)]="selectedItems"
+              [settings]="dropdownSettings"
+              formControlName="skills">
+            </ng-multiselect-dropdown>
+          </div>
+
+          <div class="form-group">
+            <label>Emaill</label>
+            <input type="email" class="form-control" formControlName="email" aria-describedby="emailHelp" placeholder="Enter email address">
+            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="help-block">
+              <div *ngIf="email.errors.required">
+              Email required*
+              </div>
+              <div *ngIf="email.errors.pattern">
+              Invalid email id
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Mobile</label>
+            <input type="number" class="form-control" formControlName="mobile" placeholder="Enter mobile number">
+            <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="help-block">
+              <div *ngIf="mobile.errors.required">
+              Mobile no required*
+              </div>  
+              <div *ngIf="mobile.errors.pattern">
+              Invalid mobile number
+              </div>
+            </div>
+          </div>
+
+          <label>Gender</label>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="Male">
+            <label class="form-check-label">Male</label>
+        
+            <input class="form-check-input" type="radio" name="gender" formControlName="gender" value="Female">
+            <label class="form-check-label">Female</label>
+          </div>
+
+          <div class="form-group">
+            <label>Upload Profile Picture</label><br>
+            <input type="file" (change)="fileChangeEvent($event)">
+          </div>
+          
+          <div class="box-footer">
+            <button class="btn btn-primary" [disabled] = "!registerForm.valid" type="submit">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </fieldset>
+</div>

@@ -1,0 +1,13 @@
+<div  style="text-align:center">
+<span style="color:purple"><h4>Name: {{data.firstname}} {{data.lastname}}</h4></span>
+
+  <img width="130" height="150" [src]="data.profile"><br>
+  Email: {{data.email}}<br>
+  Mobile: {{data.mobile}}<br>
+  Gender: {{data.gender}}
+  <hr>
+  <div>
+  <button class="btn btn-block btn-primary" (click)="onClick()">Ok</button>
+  <button class="btn btn-block btn-primary" (click)="onClickClose()">Close</button>
+</div>
+</div>

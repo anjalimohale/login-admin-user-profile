@@ -1,0 +1,38 @@
+<form class="form-signin" [formGroup]="changePassForm" (ngSubmit)="onClick()">
+    <div>
+    <h4><strong>Change Password</strong></h4>  
+    </div>
+        
+    <div class="form-group">
+      <label>Current Password</label>
+      <input type="password" class="form-control"  name="oldpass"  formControlName="oldpass" placeholder="Enter Current Password">
+      <div *ngIf="!oldpass.valid && (oldpass.dirty || oldpass.touched)" class="help-block">
+        <!-- <span *ngIf="oldpass.errors.required && oldpass.touched" class="help-block">Current Password Required*</span>     -->
+        <div *ngIf="oldpass.hasError('match')">Wrong password</div>
+        <div *ngIf="oldpass.hasError('required')">Old password Required*</div>        
+      </div>
+    </div>
+
+    <div formGroupName="password">
+      <div class="form-group">
+        <label>Password</label>
+        <input  type="password" class="form-control" formControlName="pwd" placeholder="Enter password">
+        <div *ngIf="password.get('pwd').errors">
+          <div *ngIf="password.get('pwd').errors.required && password.get('pwd').touched" class="help-block">Password Required*</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Confirm Password</label>
+        <input type="password" class="form-control" formControlName="confirmPwd" placeholder="Re-enter Password">
+        <div *ngIf="password.get('confirmPwd').errors">
+          <span *ngIf="password.get('confirmPwd').errors.required && password.get('confirmPwd').touched" class="help-block">Confirm Password Required*</span>      
+        </div>
+        <div *ngIf="password.invalid && (password.get('pwd').dirty && password.get('confirmPwd').dirty) && password.errors.notSamePassword"  class="help-block">
+          <span class="help-block">Password Not matched</span>      
+        </div>
+      </div>
+   </div>
+        <button [disabled] = "!changePassForm.valid" type="submit" class="btn btn-block btn-primary">Save</button>
+        <button class="btn btn-block btn-primary" (click)="onClickClose()" >Close</button>
+</form>

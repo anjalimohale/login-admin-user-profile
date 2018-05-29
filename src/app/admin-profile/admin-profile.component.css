@@ -1,0 +1,23 @@
+.dropdown{
+    float: right;
+    margin-right: 20px;
+    padding: 10px;
+}
+/* .mat-table, .mat-paginator, .mat-elevation-z8{
+    margin-left: 50px;
+    margin-right: 40px;
+} */
+.mat-column-id {
+    flex: 0 0 20px;
+}
+.navbar-right{
+    margin-right: 10px;
+}
+.mat-elevation-z8{
+   margin-left: 5%;
+   margin-right: 5%;
+}
+.mat-paginator,.mat-table{
+    margin-left: 0%;
+    margin-right: 0%;
+}

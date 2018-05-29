@@ -1,0 +1,6 @@
+    <section *ngIf="loggedIn" class="content-header">
+      <ol class="breadcrumb">
+        <li><a [routerLink]="['/profile']"><i class="fa fa-dashboard"></i> Level</a></li>
+        <li class="active">{{router.url}}</li>
+      </ol>
+    </section>
